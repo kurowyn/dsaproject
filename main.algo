@@ -1,4 +1,3 @@
-```algo
 CONST:
 	DISP = 0
 	LOC = 1	
@@ -337,4 +336,3 @@ Debut
 		fin selon
 	Jusqu'a: (choix = 0)
 fin
-```
