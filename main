@@ -265,7 +265,7 @@ Debut
 	ecrire("Kilometrage moyen des voitures: ", kilometrage_moyenne)
 fin
 
-Procedure stocker_afficher_voitures(Tv: TabV, Nv, type: entier)
+Fonction stocker_afficher_voitures(Tv: TabV, Nv, type: entier): ^VoitureNoeud
 Var:
 	tete, suiv: ^VoitureNoeud
 	i: entier
@@ -285,6 +285,16 @@ Debut
 	fin pour
 
 	suiv^.suiv <- nil
+
+	stocker_afficher_voitures <- tete
+fin
+
+Procedure afficher_lc_voitures(tete: ^VoitureNoeud):
+Debut
+	Tantque (tete != nil) faire:
+		afficher_voitre(tete^.voiture)
+		tete = tete->suiv
+	fin tantque
 fin
 
 Algorithme Parc
@@ -295,6 +305,7 @@ Var:
 	Nc: entier
 	v: Voiture
 	choix: entier
+	lc_disp, lc_loc: ^VoitureNoeud
 Debut
 	Nv <- 0	
 	Nc <- 0
@@ -318,8 +329,6 @@ Debut
 
 		lire(choix)
 
-		// On utilise pas les nombre directement, pour la lisibilité du code.
-		// En C, c'est comme les enums.
 		Selon (choix):
 			OPTION_LOCATION_VOITURE:
 				louer_voiture(Tv, Tc, Nv, Nc)
@@ -330,9 +339,9 @@ Debut
 			OPTION_ETAT_PARC_VOITURE:
 				etat_parc_voiture(Tv, Nv)
 			OPTION_STOCKER_AFFICHER_VOITURE_DISP:
-				stocker_afficher_voitures(Tv, Nv, DISP)	
+				lc_disp <- stocker_afficher_voitures(Tv, Nv, DISP)	
 			OPTION_STOCKER_AFFICHER_VOITURE_LOC:
-				stocker_afficher_voitures(Tv, Nv, LOC)	
+				lc_loc <- stocker_afficher_voitures(Tv, Nv, LOC)	
 		fin selon
 	Jusqu'a: (choix = 0)
 fin
