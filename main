@@ -25,11 +25,6 @@ TYPE:
 	TabV: Tab de [1..MAX] Voiture
 	TabC: Tab de [1..MAX] Client
 
-// Quelque assumptions:
-// 1. L'indexation commence a 1, pas 0.
-// 2. Les CINs sont uniques.
-// Les deux autres fonctions de recherche sont aussi de la meme philosophie.
-// En C, j'aurait utilise un "macro".
 Fonction seek_personne(Tc: TabC, Nc, cin: entier): entier
 Debut
 	Tant que (Nc != 0) faire:
@@ -340,8 +335,10 @@ Debut
 				etat_parc_voiture(Tv, Nv)
 			OPTION_STOCKER_AFFICHER_VOITURE_DISP:
 				lc_disp <- stocker_afficher_voitures(Tv, Nv, DISP)	
+				afficher_lc_voitures(lc_disp)
 			OPTION_STOCKER_AFFICHER_VOITURE_LOC:
 				lc_loc <- stocker_afficher_voitures(Tv, Nv, LOC)	
+				afficher_lc_voitures(lc_loc)
 		fin selon
 	Jusqu'a: (choix = 0)
 fin
