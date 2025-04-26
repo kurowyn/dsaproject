@@ -167,10 +167,10 @@ Vehicle_return(Vehicle *v_arr, Client *c_arr, int *v_arr_len, int *c_arr_len){
 
 			if (client_pos != -1)
 				Client_delete_vehicle(&c_arr[client_pos], 
-									  Client_vehicle_seek(c_arr[client_pos], lp));
+					              Client_vehicle_seek(c_arr[client_pos], lp));
 		} else {
 			Client_delete_vehicle(&c_arr[client_pos],
-								  Client_vehicle_seek(c_arr[client_pos], lp));
+					      Client_vehicle_seek(c_arr[client_pos], lp));
 		}
 	} else if (v_arr[vehicle_pos].state == AVAILABLE) {
 		ERROR_MSG_ALREADY_AVAILABLE(lp);
