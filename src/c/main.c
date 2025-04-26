@@ -4,21 +4,20 @@
 #include <unistd.h>
 #include "utils.h"
 
-Vehicle *v_arr = NULL;
-Client *c_arr = NULL;
+Vehicle v_arr[MAX_ARR_LEN];
+Client c_arr[MAX_ARR_LEN];
 int v_arr_len = 0, c_arr_len = 0;
-
+VehicleNode *v_head_rented, *v_head_available;
 
 int main(int argc, char **argv){
-	puts("****VEHICLE GENERATION INTERFACE****");
-	puts("****PUT -1 AS LICENSE PLATE TO TERMINATE****");
+	puts("****INTERFACE SAISI DES VOITURES****");
+	puts("(le saisi arrete lorsque vouz sasiez -1 comme matricule).");
 	while (1) {
-		printf("****VEHICLE %d****\n", v_arr_len + 1);
+		printf("****VOITURE %d****\n", v_arr_len + 1);
 		Vehicle v = Vehicle_init_interactive();
-		if (v.lp < 0)
+		if (v.lp < 0 || v_arr_len >= 50)
 			break;
 		++v_arr_len;
-		v_arr = realloc(v_arr, v_arr_len * sizeof (Vehicle));
 		v_arr[v_arr_len - 1] = v;
 	} 
 
@@ -27,18 +26,9 @@ int main(int argc, char **argv){
 
 		CLS;
 
-		puts("****MENU****");
-		puts("1. RENT VEHICLE");
-		puts("2. RETURN VEHICLE");
-		puts("3. SHOW VEHICLE STATE");
-		puts("4. SHOW PARKING LOT STATE");
-		puts("5. SHOW AND STORE AVAILABLE VEHICLES");
-		puts("6. SHOW AND STORE RENTED VEHICLES");
-		puts("0. END");
+		MAIN_MENU;
 
-		_Client_arr_show(c_arr, c_arr_len);
-
-		INT_INPUT("Choice: ", choice, NO_CONDITION);
+		INT_INPUT("Choix: ", choice, NO_CONDITION);
 		
 		switch (choice) {
 			case OPTION_RENT_VEHICLE:
@@ -54,10 +44,12 @@ int main(int argc, char **argv){
 				Vehicle_show_parking_lot_state(v_arr, v_arr_len);
 				break;
 			case OPTION_SHOW_AND_STORE_AVAILABLE_VEHICLES:
-				Available_vehicle_LL(v_arr);
+				v_head_available = Vehicle_LL(v_arr, v_arr_len, AVAILABLE);
+				Vehicle_LL_show(v_head_available);
 				break;
 			case OPTION_SHOW_AND_STORE_RENTED_VEHICLES:
-				Rented_vehicle_LL(v_arr);
+				v_head_rented = Vehicle_LL(v_arr, v_arr_len, RENTED);
+				Vehicle_LL_show(v_head_rented);
 				break;
 			case OPTION_EXIT:
 				puts("Exiting...");
@@ -67,5 +59,6 @@ int main(int argc, char **argv){
 		_pause();
 	}
 
+	// should not reach
 	return EXIT_SUCCESS;
 }
