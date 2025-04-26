@@ -1,12 +1,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-// Some remarks:
 // lp: license plate
-// c_arr: client array, v_arr: vehicle array
+// c_arr: client array, v_arr: vehicle array (in general, arr: array)
 // len: length
 // pos: position
-// All other variables also follow the same conventions.
 
 #define MAX_BUFFER_LEN 1024
 #define MAX_ARR_LEN 50
@@ -94,12 +92,12 @@ typedef enum State {RENTED = 1, AVAILABLE = 0} State;
 
 // Looks much nicer than rows of defines.
 typedef enum Option {OPTION_EXIT = 0,
-					 OPTION_RENT_VEHICLE = 1,
-					 OPTION_RETURN_VEHICLE = 2,
-					 OPTION_SHOW_VEHICLE_STATE = 3,
-					 OPTION_SHOW_PARKING_LOT_STATE = 4,
-					 OPTION_SHOW_AND_STORE_AVAILABLE_VEHICLES = 5,
-					 OPTION_SHOW_AND_STORE_RENTED_VEHICLES = 6,} Option;
+		     OPTION_RENT_VEHICLE = 1,
+		     OPTION_RETURN_VEHICLE = 2,
+		     OPTION_SHOW_VEHICLE_STATE = 3,
+		     OPTION_SHOW_PARKING_LOT_STATE = 4,
+		     OPTION_SHOW_AND_STORE_AVAILABLE_VEHICLES = 5,
+		     OPTION_SHOW_AND_STORE_RENTED_VEHICLES = 6,} Option;
 
 TYPEDEF_STRUCT(Client);
 TYPEDEF_STRUCT(Vehicle);
