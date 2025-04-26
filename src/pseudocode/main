@@ -147,6 +147,7 @@ Debut:
 			Si (Tc[pos_c].nombre_voitures < MAX) alors:
 				Tc[pos_c].nombre_voitures <- Tc[pos_c].nombre_voitures + 1
 				Tc[pos_c].matricule_voitures[nombre_voitures] <- numero
+				Tv[pos_v].etat <- LOC
 			Sinon:
 				ecrire("Nombre maximale des voitures (50) atteint par le client",
 						Tc[pos_c].cin)
@@ -262,24 +263,27 @@ fin
 
 Fonction stocker_afficher_voitures(Tv: TabV, Nv, type: entier): ^VoitureNoeud
 Var:
-	tete, suiv: ^VoitureNoeud
+	tete, suiv, temp: ^VoitureNoeud
 	i: entier
 Debut
 	creer(tete)
 	suiv <- tete
+	temp <- tete
 
 	Pour i de 1 a Nv faire:
 		// type: LOC ou DISP.
 		Si (Tv[i].etat = type) alors:
 			suiv^.voiture <- Tv[i]
-			Si (i != Nv) alors:
-				creer(suiv^.suiv)
-				suiv <- suiv^.suiv
+			creer(suiv^.suiv)
+			suiv <- suiv^.suiv
 			fin si
 		fin si
 	fin pour
 
-	suiv^.suiv <- nil
+	Tantque (temp^.suiv != suiv) faire:
+		temp <- temp^.suiv
+	fin tantque
+	temp^.suiv <- nil
 
 	stocker_afficher_voitures <- tete
 fin
