@@ -60,5 +60,5 @@ int main(int argc, char **argv){
 	}
 
 	// should not reach
-	return EXIT_SUCCESS;
+	return EXIT_FAILURE;
 }
